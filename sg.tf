@@ -1,14 +1,14 @@
 resource "aws_security_group" "allow_docdb" {
   name        = "${var.env}_allow_docdb"
   description = "Allow DocDB Access"
-  vpc_id      = var.vpc_id
+  vpc_id      = local.vpc_id
 
   ingress {
-    description = "TLS from VPC"
-    from_port   = 22
-    to_port     = 22
+    description = "DOCDB"
+    from_port   = 27017
+    to_port     = 27017
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = local.app_subnets_cidr
   }
 
   egress {
@@ -20,7 +20,7 @@ resource "aws_security_group" "allow_docdb" {
   }
 
   tags = {
-    Name = "allow_tls"
+    Name = "${var.env}_allow_docdb"
   }
 }
 
