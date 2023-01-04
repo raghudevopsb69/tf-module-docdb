@@ -18,4 +18,5 @@ resource "aws_docdb_cluster" "docdb" {
   kms_key_id              = var.kms_key_id
   vpc_security_group_ids  = [aws_security_group.allow_docdb.id]
   db_subnet_group_name    = aws_docdb_subnet_group.docdb.name
+  storage_encrypted       = var.storage_encrypted
 }
